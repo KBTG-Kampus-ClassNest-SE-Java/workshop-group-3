@@ -1,28 +1,25 @@
 package com.kampus.kbazaar.cart;
 
 import jakarta.persistence.*;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "cart")
-
 @Data
 @Getter
 @Setter
 public class Cart {
 
-//    public Cart(int userID) {
-//        this.userID = userID;
-//    }
+    //    public Cart(int userID) {
+    //        this.userID = userID;
+    //    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private long cartId;
-
 
     @Column(name = "quantity")
     private int quantity;
@@ -36,13 +33,13 @@ public class Cart {
     @Column(name = "promotion_id")
     private Long promotionId;
 
-//    private int userID;
+    //    private int userID;
 
-//    private Product[] products;
+    //    private Product[] products;
 
-//    public Cart(int userID, Product[] products) {
-//        this.userID = userID;
-//        this.products = products;
-//    }
+    //    public Cart(int userID, Product[] products) {
+    //        this.userID = userID;
+    //        this.products = products;
+    //    }
 
 }

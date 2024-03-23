@@ -3,7 +3,6 @@ package com.kampus.kbazaar.cart;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class CartController {
 
-    @Autowired private final CartService cartService;
+    private final CartService cartService;
 
     public CartController(CartService cartService) {
         this.cartService = cartService;
@@ -31,13 +30,14 @@ public class CartController {
                         schema = @Schema(implementation = Cart.class))
             })
     @PostMapping("/carts/{username}/promotions")
-    public CartResponse appliedPromotionAll(@PathVariable String username, @RequestBody PromotionAllRequest cart) { // NOSONAR
+    public CartResponse appliedPromotionAll(
+            @PathVariable String username, @RequestBody PromotionAllRequest cart) { // NOSONAR
         return cartService.addPromotionAll(username, cart);
     }
 
-//    @PostMapping("/carts/{username}/promotions")
-//    public ResponseEntity createCartPromotions(@PathVariable String username) {
-//        cartService.createCartPromotions30UpTo200();
-//        return ResponseEntity.ok().build();
-//    }
+    //    @PostMapping("/carts/{username}/promotions")
+    //    public ResponseEntity createCartPromotions(@PathVariable String username) {
+    //        cartService.createCartPromotions30UpTo200();
+    //        return ResponseEntity.ok().build();
+    //    }
 }

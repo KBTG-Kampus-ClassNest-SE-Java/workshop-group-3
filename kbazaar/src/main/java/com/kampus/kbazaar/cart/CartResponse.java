@@ -1,7 +1,5 @@
 package com.kampus.kbazaar.cart;
 
-import com.kampus.kbazaar.product.Product;
-
 import java.util.List;
 
 public class CartResponse {
@@ -10,10 +8,8 @@ public class CartResponse {
     private Integer totalPrice;
     private Integer totalDiscount;
 
-    public CartResponse(String username,
-                        List<Item> items,
-                        Integer totalPrice,
-                        Integer totalDiscount) {
+    public CartResponse(
+            String username, List<Item> items, Integer totalPrice, Integer totalDiscount) {
         this.username = username;
         this.items = items;
         this.totalPrice = totalPrice;

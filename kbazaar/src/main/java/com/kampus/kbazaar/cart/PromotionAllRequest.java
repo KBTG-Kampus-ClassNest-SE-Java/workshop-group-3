@@ -6,5 +6,4 @@ public class PromotionAllRequest {
     public String getCode() {
         return code;
     }
-
 }
