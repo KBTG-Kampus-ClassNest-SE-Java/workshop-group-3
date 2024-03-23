@@ -22,14 +22,14 @@ public class CartController {
 
     @ApiResponse(
             responseCode = "200",
-            description = "add product to cart",
+            description = "add promotion to all products in cart",
             content = {
                 @Content(
                         mediaType = "application/json",
                         schema = @Schema(implementation = Cart.class))
             })
     @PostMapping("/carts/{username}/promotions")
-    public void appliedPromotionAll(@PathVariable String username, @RequestBody PromotionAllRequest cart) { // NOSONAR
-        cartService.addPromotionAll(username, cart);
+    public CartResponse appliedPromotionAll(@PathVariable String username, @RequestBody PromotionAllRequest cart) { // NOSONAR
+        return cartService.addPromotionAll(username, cart);
     }
 }

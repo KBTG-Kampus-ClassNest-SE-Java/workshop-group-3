@@ -23,8 +23,6 @@ public class Cart {
     @Column(name = "promotion_id")
     private Long promotionId;
 
-//    @Column
-//    @Reference("user_id")
 //    private int userID;
 
 //    private Product[] products;
