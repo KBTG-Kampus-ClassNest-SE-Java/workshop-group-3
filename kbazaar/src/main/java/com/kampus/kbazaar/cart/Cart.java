@@ -1,20 +1,16 @@
 package com.kampus.kbazaar.cart;
 
-import com.kampus.kbazaar.product.Product;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Getter
+@Setter
 public class Cart {
     private int userID;
 
-    private Product[] products;
-
-    public Cart(int userID, Product[] products) {
+    public Cart(int userID) {
         this.userID = userID;
-        this.products = products;
-    }
-
-    public void createCartPromotions30UpTo200() {
-
     }
 }

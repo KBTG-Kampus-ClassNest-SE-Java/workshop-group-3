@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class CartController {
 
-    @Autowired
-    private final CartService cartService;
+    @Autowired private final CartService cartService;
 
     public CartController(CartService cartService) {
         this.cartService = cartService;
@@ -19,7 +18,6 @@ public class CartController {
     public ResponseEntity getCart() { // NOSONAR
         return ResponseEntity.ok().build();
     }
-
 
     @PostMapping("/carts/{username}/promotions")
     public ResponseEntity createCartPromotions(@PathVariable String username) {
