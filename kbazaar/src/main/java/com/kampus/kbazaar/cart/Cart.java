@@ -13,4 +13,8 @@ public class Cart {
         this.userID = userID;
         this.products = products;
     }
+
+    public void createCartPromotions30UpTo200() {
+
+    }
 }

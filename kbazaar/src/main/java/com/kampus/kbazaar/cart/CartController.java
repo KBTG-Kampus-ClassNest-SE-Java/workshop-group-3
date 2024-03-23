@@ -11,4 +11,10 @@ public class CartController {
     public ResponseEntity getCart() { // NOSONAR
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/carts/{username}/promotions")
+    public ResponseEntity createCartPromotions(@PathVariable String username) {
+
+        return ResponseEntity.ok().build();
+    }
 }
