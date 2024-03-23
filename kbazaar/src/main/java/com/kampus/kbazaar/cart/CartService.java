@@ -5,7 +5,6 @@ import com.kampus.kbazaar.promotion.PromotionResponse;
 import com.kampus.kbazaar.promotion.PromotionService;
 import com.kampus.kbazaar.shopper.ShopperRepository;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,19 +32,20 @@ public class CartService {
         if (promotion.getCode().equals("FIXEDAMOUNT10")) {
             PromotionResponse newPromotion =
                     promotionService.getPromotionByCode(promotion.getCode());
-//                        if (isDateBetween(newPromotion.startDate(), newPromotion.endDate(),
-//            LocalDateTime.now()))
-//                        {
+            //                        if (isDateBetween(newPromotion.startDate(),
+            // newPromotion.endDate(),
+            //            LocalDateTime.now()))
+            //                        {
             return new CartResponse(username, null, 0, 0);
         } else {
             throw new RuntimeException("Promotion not found");
         }
     }
 
-//    public boolean isDateBetween(
-//            LocalDateTime startDate, LocalDateTime endDate, LocalDateTime dateToCheck) {
-//        return !dateToCheck.isBefore(startDate) && !dateToCheck.isAfter(endDate);
-//    }
+    //    public boolean isDateBetween(
+    //            LocalDateTime startDate, LocalDateTime endDate, LocalDateTime dateToCheck) {
+    //        return !dateToCheck.isBefore(startDate) && !dateToCheck.isAfter(endDate);
+    //    }
 
     public void createCartPromotions30UpTo200() {
         //        List<Cart> carts = cartRepository.findByUserId(1L);
