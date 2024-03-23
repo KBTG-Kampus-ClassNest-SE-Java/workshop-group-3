@@ -1,5 +1,6 @@
 package com.kampus.kbazaar.cart;
 
+import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(
@@ -41,5 +43,14 @@ public class CartControllerTest {
     public void getCart_ReturnsOk() throws Exception {
         mockMvc.perform(get("/api/v1/carts").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void appliedPromotionAll_ReturnsOk() throws Exception {
+        String username = "TechNinja";
+        String promotions = "FIXEDAMOUNT10";
+
+        mockMvc.perform(post("/cart/{username}/promotions").contentType(MediaType.APPLICATION_JSON).content(promotions)
+                .andExpect(status().isOk()));
     }
 }
