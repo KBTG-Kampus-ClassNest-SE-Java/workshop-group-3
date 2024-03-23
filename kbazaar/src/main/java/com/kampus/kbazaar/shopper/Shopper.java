@@ -1,9 +1,7 @@
 package com.kampus.kbazaar.shopper;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity(name = "shopper")
 @Data
@@ -22,7 +20,25 @@ public class Shopper {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "kpoints")
+    private Double kpoints;
+
+    public Shopper(Long id, String username, String email) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.kpoints = 0.0;
+    }
+
     public ShopperResponse toResponse() {
         return new ShopperResponse(this.id, this.username, this.email);
+    }
+
+    public Double getKpoints() {
+        return this.kpoints != null ? this.kpoints : 0.0;
+    }
+
+    public void setKpoints(Double kpoints) {
+        this.kpoints = kpoints;
     }
 }

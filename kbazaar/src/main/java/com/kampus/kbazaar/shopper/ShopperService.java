@@ -30,4 +30,22 @@ public class ShopperService {
                 .map(Shopper::toResponse)
                 .orElseThrow(() -> new NotFoundException("Shopper not found"));
     }
+
+    public KPointsResponse earnKpoints(String username, double amount) {
+        Shopper shopper =
+                shopperRepository
+                        .findByUsername(username)
+                        .orElseThrow(() -> new NotFoundException("Shopper not found"));
+
+        double earnedKpoints = calculateKpoints(amount);
+        shopper.setKpoints(shopper.getKpoints() + earnedKpoints);
+
+        shopperRepository.save(shopper);
+
+        return new KPointsResponse(username, shopper.getKpoints());
+    }
+
+    private double calculateKpoints(double amount) {
+        return amount / 10.0;
+    }
 }

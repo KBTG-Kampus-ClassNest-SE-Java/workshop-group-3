@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -61,5 +58,10 @@ public class ShopperController {
     @GetMapping("/shoppers/{username}")
     public ShopperResponse getUserByUsername(@PathVariable String username) {
         return shopperService.getByUsername(username);
+    }
+
+    @PostMapping("/kpoints/{username}/earn")
+    public KPointsResponse earnKpoints(@PathVariable String username, @RequestParam double amount) {
+        return shopperService.earnKpoints(username, amount);
     }
 }
