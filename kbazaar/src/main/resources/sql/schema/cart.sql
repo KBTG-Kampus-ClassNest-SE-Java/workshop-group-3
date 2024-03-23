@@ -1,10 +1,7 @@
-CREATE TABLE public.cart
-(
-    cart_id      bigint,
-    quantity     bigint,
-    user_id      bigint,
-    product_id   bigint,
-    promotion_id bigint,
-    PRIMARY KEY (cart_id)
+CREATE TABLE IF NOT EXISTS cart (
+    cart_id SERIAL PRIMARY KEY,
+    quantity INT NOT NULL,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    promotion_id INT
 );
-ALTER TABLE IF EXISTS public.cart OWNER to postgres;

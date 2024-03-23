@@ -9,8 +9,6 @@ import java.util.Optional;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
-    Optional<Cart> findBySku(String sku);
-
 //    @Query("SELECT  FROM Cart c WHERE c.userId = ?1")
-//    Optional<Cart> findByUserId(int userId);
+//    +Optional<Cart> findByUserId(int userId);
 }

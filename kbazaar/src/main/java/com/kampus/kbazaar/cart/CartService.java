@@ -23,7 +23,5 @@ public class CartService {
             PromotionResponse newPromotion = promotionService.getPromotionByCode(promotion.getCode());
             System.out.println(newPromotion.code());
         }
-
-
     }
 }
