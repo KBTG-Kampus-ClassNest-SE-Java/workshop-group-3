@@ -5,11 +5,25 @@ import java.util.List;
 public class CartResponse {
     private String username;
     private List<Item> items;
-    private Integer totalPrice;
-    private Integer totalDiscount;
+    private Double totalPrice;
+    private Double totalDiscount;
+    private Double fee;
 
     public CartResponse(
-            String username, List<Item> items, Integer totalPrice, Integer totalDiscount) {
+            String username,
+            List<Item> items,
+            Double totalPrice,
+            Double totalDiscount,
+            Double fee) {
+        this.username = username;
+        this.items = items;
+        this.totalPrice = totalPrice;
+        this.totalDiscount = totalDiscount;
+        this.fee = fee;
+    }
+
+    public CartResponse(
+            String username, List<Item> items, Double totalPrice, Double totalDiscount) {
         this.username = username;
         this.items = items;
         this.totalPrice = totalPrice;
@@ -32,19 +46,27 @@ public class CartResponse {
         this.items = items;
     }
 
-    public Integer getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Integer totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public Integer getTotalDiscount() {
+    public Double getTotalDiscount() {
         return totalDiscount;
     }
 
-    public void setTotalDiscount(Integer totalDiscount) {
+    public void setTotalDiscount(Double totalDiscount) {
         this.totalDiscount = totalDiscount;
+    }
+
+    public Double getFee() {
+        return fee;
+    }
+
+    public void setFee(Double fee) {
+        this.fee = fee;
     }
 }

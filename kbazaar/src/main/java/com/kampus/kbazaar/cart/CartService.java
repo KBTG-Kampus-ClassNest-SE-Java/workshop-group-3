@@ -7,6 +7,7 @@ import com.kampus.kbazaar.shopper.ShopperRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,9 @@ public class CartService {
     private final ShopperRepository ShopperRepository;
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
+
+    @Value("${enabled.feature.shipping-fee.api}")
+    private boolean enableToggleShippingFee;
 
     public CartService(
             PromotionRepository promotionRepository,
@@ -30,28 +34,50 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    // Story 4 : Add specific product to my cart
     public CartResponse addItemToCart(String productSku, int quantity, String username) {
 
-        //        Optional<Product> product = productRepository.findBySku(productSku);
+        Double fee = 0.0;
 
-        //        if (product.isEmpty()) {
-        //            throw new NotFoundException("Product not found");
-        //        }
+        if (enableToggleShippingFee) {
+            fee = 25.0;
+        }
 
-        // Find the cart by username
         Optional<Cart> cart = cartRepository.findByUsername(username);
-        //        Product mockProduct = productRepository.findBySku(productSku);
-        Item mockItem =
-                new Item(
-                        "MOBILE-APPLE-IPHONE-12-PRO",
-                        "IPHONE12",
-                        1,
-                        new BigDecimal("10000.00"),
-                        new BigDecimal("10.00"),
-                        new BigDecimal("10.00"));
 
-        return new CartResponse(username, List.of(mockItem), 0, 0);
+        List<Item> mockItem =
+                List.of(
+                        new Item(
+                                "MOBILE-APPLE-IPHONE-12-PRO",
+                                "IPHONE12",
+                                1,
+                                new BigDecimal("10000.00"),
+                                new BigDecimal("10.00"),
+                                new BigDecimal("9990.00")),
+                        new Item(
+                                "MOBILE-APPLE-IPHONE-12-PRO",
+                                "IPHONE12",
+                                1,
+                                new BigDecimal("5000.00"),
+                                new BigDecimal("10.00"),
+                                new BigDecimal("4990.00")));
+
+        Double totalPrice = 0.0;
+        Double totalDiscount = 0.0;
+        Double totalFinalPrice = 0.0;
+
+        for (Item item : mockItem) {
+            totalPrice += item.getPrice().doubleValue();
+            totalDiscount += item.getDiscount().doubleValue();
+
+            totalFinalPrice += item.getFinalPrice().doubleValue();
+
+            System.out.println(totalFinalPrice);
+        }
+
+        System.out.println(totalPrice);
+        System.out.println(totalDiscount);
+
+        return new CartResponse(username, mockItem, totalPrice, totalDiscount, fee);
     }
 
     //        if (cart.isEmpty()) {
