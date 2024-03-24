@@ -5,11 +5,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -39,8 +35,12 @@ public class ProductController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = NotFoundException.class)))
     @GetMapping("/products")
-    public List<ProductResponse> getProducts() {
-        return productService.getAll();
+    public ProductResponse getProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit,
+            @RequestParam(defaultValue = "name") String sortBy) {
+
+        return productService.getAll(page, limit, sortBy);
     }
 
     @ApiResponse(
@@ -59,7 +59,7 @@ public class ProductController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = NotFoundException.class)))
     @GetMapping("/products/{sku}")
-    public ProductResponse getProductById(@PathVariable String sku) {
+    public Product getProductById(@PathVariable String sku) {
         return productService.getBySku(sku);
     }
 }

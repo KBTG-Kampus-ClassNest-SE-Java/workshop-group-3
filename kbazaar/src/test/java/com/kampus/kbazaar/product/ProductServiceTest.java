@@ -13,7 +13,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.*;
 
 class ProductServiceTest {
 
@@ -30,40 +32,50 @@ class ProductServiceTest {
     @DisplayName("should be able to get all products")
     void shouldBeAbleToGetAllProducts() {
         // Mock data
-        Product product1 =
-                new Product(
-                        1L,
-                        "Google Pixel 5",
-                        "MOBILE-GOOGLE-PIXEL-5",
-                        new BigDecimal(12990.75),
-                        100);
-        Product product2 =
-                new Product(2L, "Coca-Cola", "BEV-COCA-COLA", new BigDecimal(20.75), 150);
-        List<Product> productList = Arrays.asList(product1, product2);
+        List<Product> products =
+                Arrays.asList(
+                        new Product(
+                                1L,
+                                "Google Pixel 5",
+                                "MOBILE-GOOGLE-PIXEL-5",
+                                new BigDecimal(12990.75),
+                                100),
+                        new Product(2L, "Coca-Cola", "BEV-COCA-COLA", new BigDecimal(20.75), 150));
+        Page<Product> productPage = new PageImpl<>(products);
+
+        int page = 0;
+        int limit = 10;
+        String sortBy = "name";
+        Pageable paging = PageRequest.of(page, limit);
 
         // Mock repository method
-        when(productRepository.findAll()).thenReturn(productList);
+        when(productRepository.findAll((Pageable) Mockito.any())).thenReturn(productPage);
 
         // Call service method
-        List<ProductResponse> result = productService.getAll();
+        ProductResponse result = productService.getAll(page, limit, sortBy);
 
         // Assertions
-        assertEquals(2, result.size());
-        assertEquals("Google Pixel 5", result.get(0).name());
-        assertEquals("BEV-COCA-COLA", result.get(1).sku());
+        assertEquals(2, result.getProducts().size());
+        assertEquals("Google Pixel 5", result.getProducts().get(0).getName());
+        assertEquals("BEV-COCA-COLA", result.getProducts().get(1).getSku());
     }
 
     @Test
     @DisplayName("should return empty list when no product found")
     void shouldReturnEmptyListWhenNoProductFoundGetAllProducts() {
+        int page = 0;
+        int limit = 10;
+        String sortBy = "name";
+        Page<Product> productPage = Page.empty();
+
         // Mock repository method returning empty list
-        when(productRepository.findAll()).thenReturn(Arrays.asList());
+        when(productRepository.findAll((Pageable) Mockito.any())).thenReturn(productPage);
 
         // Call service method
-        List<ProductResponse> result = productService.getAll();
+        ProductResponse result = productService.getAll(page, limit, sortBy);
 
         // Assertions
-        assertTrue(result.isEmpty());
+        assertTrue(result.getProducts().isEmpty());
     }
 
     @Test
@@ -78,11 +90,11 @@ class ProductServiceTest {
         //         .thenReturn(Optional.of(product));
 
         // Call service method
-        ProductResponse result = productService.getBySku("STATIONERY-PEN-BIC-BALLPOINT");
+        Product result = productService.getBySku("STATIONERY-PEN-BIC-BALLPOINT");
 
         // Assertions
-        assertEquals("Pens", result.name());
-        assertEquals(new BigDecimal(14.99), result.price());
+        assertEquals("Pens", result.getName());
+        assertEquals(new BigDecimal(14.99), result.getPrice());
     }
 
     @Test
