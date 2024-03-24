@@ -85,17 +85,29 @@ public class CartService {
     }
 
     public CartResponse getCart(String username) {
-        List<Item> items = List.of(new Item("BEV-FANTA", "TechNinja", 10, new BigDecimal(100.00), new BigDecimal(10.00), new BigDecimal(90.00)),
-                new Item("BEV-SODA", "TechNinja", 10, new BigDecimal(100.00), new BigDecimal(10.00), new BigDecimal(90.00)));
-        BigDecimal TotalPrice = items.stream()
-                .map(Item::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal TotalDiscount = items.stream()
-                .map(Item::getDiscount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return new CartResponse(username, items, TotalPrice.doubleValue(), TotalDiscount.doubleValue());
+        List<Item> items =
+                List.of(
+                        new Item(
+                                "BEV-FANTA",
+                                "TechNinja",
+                                10,
+                                new BigDecimal(100.00),
+                                new BigDecimal(10.00),
+                                new BigDecimal(90.00)),
+                        new Item(
+                                "BEV-SODA",
+                                "TechNinja",
+                                10,
+                                new BigDecimal(100.00),
+                                new BigDecimal(10.00),
+                                new BigDecimal(90.00)));
+        BigDecimal TotalPrice =
+                items.stream().map(Item::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal TotalDiscount =
+                items.stream().map(Item::getDiscount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return new CartResponse(
+                username, items, TotalPrice.doubleValue(), TotalDiscount.doubleValue());
     }
-
 
     //        if (cart.isEmpty()) {
     //            // Create a new cart
