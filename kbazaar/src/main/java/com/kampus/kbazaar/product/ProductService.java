@@ -2,7 +2,6 @@ package com.kampus.kbazaar.product;
 
 import com.kampus.kbazaar.exceptions.NotFoundException;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,11 +18,11 @@ public class ProductService {
     }
 
     public ProductResponse getBySku(String sku) {
-        Optional<Product> product = productRepository.findBySku(sku);
-        if (product.isEmpty()) {
+        Product product = productRepository.findBySku(sku);
+        if (product == null) {
             throw new NotFoundException("Product not found");
         }
 
-        return product.get().toResponse();
+        return product.toResponse();
     }
 }

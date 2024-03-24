@@ -1,6 +1,7 @@
 package com.kampus.kbazaar.cart;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +11,8 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
+@AllArgsConstructor
 public class Cart {
-
-    //    public Cart(int userID) {
-    //        this.userID = userID;
-    //    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +22,11 @@ public class Cart {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "user_id")
-    private int userId;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "product_id")
-    private int productId;
-
-    @Column(name = "promotion_id")
-    private Long promotionId;
+    private Long product_id;
 
     //    private int userID;
 

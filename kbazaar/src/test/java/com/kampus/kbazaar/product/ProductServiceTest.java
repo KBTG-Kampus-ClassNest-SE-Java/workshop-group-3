@@ -8,7 +8,6 @@ import com.kampus.kbazaar.exceptions.NotFoundException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -75,8 +74,8 @@ class ProductServiceTest {
                 new Product(1L, "Pens", "STATIONERY-PEN-BIC-BALLPOINT", new BigDecimal(14.99), 100);
 
         // Mock repository method
-        when(productRepository.findBySku("STATIONERY-PEN-BIC-BALLPOINT"))
-                .thenReturn(Optional.of(product));
+        when(productRepository.findBySku("STATIONERY-PEN-BIC-BALLPOINT")).thenReturn(product);
+        //         .thenReturn(Optional.of(product));
 
         // Call service method
         ProductResponse result = productService.getBySku("STATIONERY-PEN-BIC-BALLPOINT");
@@ -90,7 +89,8 @@ class ProductServiceTest {
     @DisplayName("should return null when get product non-existing SKU")
     void shouldReturnNullWhenGetProductNonExistingSKU() {
         // Mock repository method returning empty optional
-        when(productRepository.findBySku(anyString())).thenReturn(Optional.empty());
+        when(productRepository.findBySku(anyString())).thenReturn(null);
+        //        when(productRepository.findBySku(anyString())).thenReturn(Optional.empty());
 
         // Assertions
         assertThrows(NotFoundException.class, () -> productService.getBySku("NonExistingSKU"));

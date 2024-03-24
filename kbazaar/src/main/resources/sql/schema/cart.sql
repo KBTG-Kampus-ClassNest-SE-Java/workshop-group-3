@@ -8,14 +8,12 @@ CREATE TABLE IF NOT EXISTS cart
     INT
     NOT
     NULL,
-    user_id
-    INT
+    username
+    VARCHAR(255)
     NOT
     NULL,
     product_id
     INT
     NOT
-    NULL,
-    promotion_id
-    INT
+    NULL
 );
