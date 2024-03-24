@@ -80,6 +80,23 @@ public class CartService {
         return new CartResponse(username, mockItem, totalPrice, totalDiscount, fee);
     }
 
+    public String deleteItem(String username, String productSku) {
+        return productSku;
+    }
+
+    public CartResponse getCart(String username) {
+        List<Item> items = List.of(new Item("BEV-FANTA", "TechNinja", 10, new BigDecimal(100.00), new BigDecimal(10.00), new BigDecimal(90.00)),
+                new Item("BEV-SODA", "TechNinja", 10, new BigDecimal(100.00), new BigDecimal(10.00), new BigDecimal(90.00)));
+        BigDecimal TotalPrice = items.stream()
+                .map(Item::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal TotalDiscount = items.stream()
+                .map(Item::getDiscount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return new CartResponse(username, items, TotalPrice.doubleValue(), TotalDiscount.doubleValue());
+    }
+
+
     //        if (cart.isEmpty()) {
     //            // Create a new cart
     //            Cart newCart = new Cart(1, 1, username, product.get().getId());

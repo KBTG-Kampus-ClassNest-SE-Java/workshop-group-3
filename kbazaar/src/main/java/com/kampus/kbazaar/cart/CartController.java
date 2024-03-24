@@ -36,6 +36,16 @@ public class CartController {
             @PathVariable String username, @RequestBody ItemRequest itemRequest) {
         return cartService.addItemToCart("Iphone", 1, username);
     }
+
+    @DeleteMapping("/carts/{username}/items/{productSku}")
+    public String deleteItem(@PathVariable String username, @PathVariable String productSku) {
+        return cartService.deleteItem(username, productSku);
+    }
+
+    @GetMapping("/carts/{username}")
+    public CartResponse getCart(@PathVariable String username) {
+        return cartService.getCart(username);
+    }
 }
 
     //    @PostMapping("/carts/{username}/promotions")
